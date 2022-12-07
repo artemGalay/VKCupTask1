@@ -10,7 +10,7 @@ import UIKit
 class ViewController: UIViewController {
 
     private var selected = [String]()
-    private var titles = ["Юмор", "Еда", "Кино", "Рестораны", "Прогулки", "Политика", "Новости", "Автомобили", "Сериалы", "Рецепты", "Работа", "Отдых", "Спорт", "Политика", "Новости", "Юмор", "Еда", "Кино", "Рестораны", "Прогулки", "Политика", "Новости", "Юмор", "Еда", "Кино"  ]
+    private var titles = ["Юморdvfdbdfgbfdbdggbdgbfdb", "Еда", "Кино", "Рестораны", "Прогулки", "Политика", "Новости", "Автомобили", "Сериалы", "Рецепты", "Работа", "Отдых", "Спорт", "Политика", "Новости", "Юмор", "Еда", "Кино", "Рестораны", "Прогулки", "Политика", "Новости", "Юмор", "Еда", "Кино"  ]
 
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -39,11 +39,17 @@ class ViewController: UIViewController {
 
     private lazy var collectionView: UICollectionView = {
         let layout = TagFlowLayout()
-        layout.estimatedItemSize = CGSize(width: 140, height: 40)
+//        layout.estimatedItemSize = CGSize(width: 140, height: 40)
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+//        collectionView.collectionViewLayout = layout
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.delegate = self
+//        layout.minimumInteritemSpacing = 10
+//        layout.minimumLineSpacing = 10
+//        collectionView.contentInsetAdjustmentBehavior = .always
+        collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: CollectionViewCell.identifier)
         collectionView.dataSource = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+
         return collectionView
     }()
 
@@ -57,7 +63,6 @@ class ViewController: UIViewController {
         view.addSubview(titleLabel)
         view.addSubview(skipButton)
         view.addSubview(collectionView)
-
     }
 
     private func setuoLayout() {
@@ -80,18 +85,27 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UICollectionViewDelegateFlowLayout {
-
-}
-
-extension ViewController: UICollectionViewDataSource {
+extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+   
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.identifier,
+                                                            for: indexPath) as? CollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        cell.titleLabel.text = titles[indexPath.row]
+        cell.titleLabel.preferredMaxLayoutWidth = collectionView.frame.width - 16
+
+        return cell
 
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         titles.count
     }
+
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+//        return CGSize(width: 200, height: 30)
+//    }
 
 
 }
