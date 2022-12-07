@@ -12,6 +12,7 @@
 		D9D13132293E46320000D569 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9D13131293E46320000D569 /* Assets.xcassets */; };
 		D9D13135293E46320000D569 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9D13133293E46320000D569 /* LaunchScreen.storyboard */; };
 		D9D13143293E555C0000D569 /* TagFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D13142293E555B0000D569 /* TagFlowLayout.swift */; };
+		D9D13145293F63B50000D569 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D13144293F63B50000D569 /* CollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		D9D13134293E46320000D569 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D9D13136293E46320000D569 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9D13142293E555B0000D569 /* TagFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagFlowLayout.swift; sourceTree = "<group>"; };
+		D9D13144293F63B50000D569 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			children = (
 				D9D13128293E46310000D569 /* AppDelegate.swift */,
 				D9D1312C293E46310000D569 /* ViewController.swift */,
+				D9D13144293F63B50000D569 /* CollectionViewCell.swift */,
 				D9D13142293E555B0000D569 /* TagFlowLayout.swift */,
 				D9D13131293E46320000D569 /* Assets.xcassets */,
 				D9D13133293E46320000D569 /* LaunchScreen.storyboard */,
@@ -140,6 +143,7 @@
 			files = (
 				D9D1312D293E46310000D569 /* ViewController.swift in Sources */,
 				D9D13129293E46310000D569 /* AppDelegate.swift in Sources */,
+				D9D13145293F63B50000D569 /* CollectionViewCell.swift in Sources */,
 				D9D13143293E555C0000D569 /* TagFlowLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
