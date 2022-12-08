@@ -11,31 +11,47 @@ class CollectionViewCell: UICollectionViewCell {
 
     static let identifier = "CollectionViewCell"
 
-//    let mainView: UIView = {
-//        let view = UIView()
-//        view.layer.cornerRadius = 20
-//        view.backgroundColor = .separator
-//        view.sizeToFit()
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//        return view
-//    }()
+    var isTap = true
+
+    let mainView: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 10
+        view.backgroundColor = .separator
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 
     let titleLabel: UILabel = {
-        let label = UILabel(frame: .zero)
-        label.contentMode = .scaleToFill
-//        label.font = .systemFont(ofSize: 12)
-        label.textColor = .red
+        let label = UILabel()
+        label.font = UIFont(name: "SFPro-Semibold", size: 16)
+        label.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
         label.textAlignment = .left
-        label.sizeToFit()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
+    let plusImage: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(systemName: "plus")
+        image.tintColor = .white
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
+
+
+
+
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 //        addSubview(mainView)
-        contentView.addSubview(titleLabel)
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(viewTupped))
+        mainView.addGestureRecognizer(gesture)
+        mainView.addSubview(titleLabel)
+        mainView.addSubview(plusImage)
+        contentView.addSubview(mainView)
         setupLayout()
+
         
     }
 
@@ -43,46 +59,39 @@ class CollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func preferredLayoutAttributesFitting(
-        _ layoutAttributes: UICollectionViewLayoutAttributes
-      ) -> UICollectionViewLayoutAttributes
-      {
-        let layoutAttributes = super.preferredLayoutAttributesFitting(layoutAttributes)
-
-        let fittingSize = UIView.layoutFittingCompressedSize
-
-        layoutAttributes.frame.size = systemLayoutSizeFitting(
-          fittingSize,
-          withHorizontalFittingPriority: .fittingSizeLevel,
-          verticalFittingPriority: .fittingSizeLevel
-        )
-
-        return layoutAttributes
-      }
-
-
-//
-//    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-//           titleLabel.preferredMaxLayoutWidth = layoutAttributes.size.width - contentView.layoutMargins.left - contentView.layoutMargins.left
-//           layoutAttributes.bounds.size.height = systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
-//           return layoutAttributes
-//       }
-
     private func setupLayout() {
+
         NSLayoutConstraint.activate([
 
-//            mainView.topAnchor.constraint(equalTo: topAnchor),
-//            mainView.leadingAnchor.constraint(equalTo: leadingAnchor),
-//            mainView.trailingAnchor.constraint(equalTo: trailingAnchor),
-//            mainView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            mainView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            mainView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            mainView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            mainView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            mainView.heightAnchor.constraint(equalToConstant: 40),
 
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-//            titleLabel.heightAnchor.constraint(equalToConstant: 40),
-//            titleLabel.widthAnchor.constraint(equalToConstant: 100)
+            titleLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 9),
+            titleLabel.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 12),
+            titleLabel.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: -11),
+//            titleLabel.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -55),
+
+            plusImage.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 11),
+            plusImage.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -11),
+            plusImage.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 26),
+            plusImage.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: -11)
         ])
-
-//        titleLabel.setContentHuggingPriority(UILayoutPriority(750), for: .horizontal)
     }
 
+    @objc func viewTupped() {
+        if isTap {
+            print("True")
+            mainView.backgroundColor = .orange
+            plusImage.image = UIImage(systemName: "checkmark")
+            isTap = false
+        } else {
+            print("False")
+            isTap = true
+            mainView.backgroundColor = .separator
+            plusImage.image = UIImage(systemName: "plus")
+        }
+    }
 }
