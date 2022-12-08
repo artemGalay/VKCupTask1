@@ -7,10 +7,9 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
 
-    private var selected = [String]()
-    private var titles = ["Юморdvfdbdfgbfdbdggbdgbfdb", "Еда", "Кино", "Рестораны", "Прогулки", "Политика", "Новости", "Автомобили", "Сериалы", "Рецепты", "Работа", "Отдых", "Спорт", "Политика", "Новости", "Юмор", "Еда", "Кино", "Рестораны", "Прогулки", "Политика", "Новости", "Юмор", "Еда", "Кино"  ]
+    private var titles = ["Юмор", "Еда", "Кино", "Рестораны", "Прогулки", "Политика", "Новости", "Автомобили", "Сериалы", "Рецепты", "Работа", "Отдых", "Спорт", "Политика", "Новости", "Юмор", "Еда", "Кино", "Рестораны", "Прогулки", "Политика", "Новости", "Юмор", "Еда", "Кино"  ]
 
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -39,8 +38,10 @@ class ViewController: UIViewController {
 
     private lazy var collectionView: UICollectionView = {
         let layout = TagFlowLayout()
-//        layout.estimatedItemSize = CGSize(width: 140, height: 40)
+//        let width = UIScreen.main.bounds.size.width
         layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+//        layout.estimatedItemSize = CGSize(width: 140, height: 40)
+//        layout.itemSize = UICollectionViewFlowLayout.automaticSize
 //        collectionView.collectionViewLayout = layout
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
 //        layout.minimumInteritemSpacing = 10
