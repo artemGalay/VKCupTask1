@@ -38,17 +38,21 @@ class CollectionViewCell: UICollectionViewCell {
         return image
     }()
 
-
-
-
+    let separatorView: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 1
+        view.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.27)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-//        addSubview(mainView)
         let gesture = UITapGestureRecognizer(target: self, action: #selector(viewTupped))
         mainView.addGestureRecognizer(gesture)
         mainView.addSubview(titleLabel)
         mainView.addSubview(plusImage)
+        mainView.addSubview(separatorView)
         contentView.addSubview(mainView)
         setupLayout()
 
@@ -72,24 +76,30 @@ class CollectionViewCell: UICollectionViewCell {
             titleLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 9),
             titleLabel.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 12),
             titleLabel.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: -11),
-//            titleLabel.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -55),
 
-            plusImage.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 11),
-            plusImage.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -11),
-            plusImage.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 26),
-            plusImage.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: -11)
+            separatorView.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 14),
+            separatorView.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 10),
+            separatorView.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: -10),
+            separatorView.widthAnchor.constraint(equalToConstant: 1),
+
+            plusImage.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 10),
+            plusImage.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -10),
+            plusImage.leadingAnchor.constraint(equalTo: separatorView.trailingAnchor, constant: 10),
+            plusImage.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: -10)
         ])
     }
 
     @objc func viewTupped() {
         if isTap {
             print("True")
+            separatorView.isHidden = true
             mainView.backgroundColor = .orange
             plusImage.image = UIImage(systemName: "checkmark")
             isTap = false
         } else {
             print("False")
             isTap = true
+            separatorView.isHidden = false
             mainView.backgroundColor = .separator
             plusImage.image = UIImage(systemName: "plus")
         }
