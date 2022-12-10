@@ -15,7 +15,7 @@ class CollectionViewCell: UICollectionViewCell {
 
     let mainView: UIView = {
         let view = UIView()
-        view.layer.cornerRadius = 10
+        view.layer.cornerRadius = 12
         view.backgroundColor = .separator
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
