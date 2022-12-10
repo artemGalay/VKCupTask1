@@ -97,7 +97,6 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFl
         cell.titleLabel.preferredMaxLayoutWidth = collectionView.frame.width - 16
 
         return cell
-
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
