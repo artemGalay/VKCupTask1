@@ -38,7 +38,6 @@ final class ViewController: UIViewController {
 
     private lazy var collectionView: UICollectionView = {
         let layout = TagFlowLayout()
-//        let width = UIScreen.main.bounds.size.width
         layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
 //        layout.estimatedItemSize = CGSize(width: 140, height: 40)
 //        layout.itemSize = UICollectionViewFlowLayout.automaticSize
