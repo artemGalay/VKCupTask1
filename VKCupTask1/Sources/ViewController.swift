@@ -8,8 +8,10 @@
 import UIKit
 
 final class ViewController: UIViewController {
+    
+    var isTap = true
 
-    private var titles = ["Юмор", "Еда", "Кино", "Рестораны", "Прогулки", "Политика", "Новости", "Автомобили", "Сериалы", "Рецепты", "Работа", "Отдых", "Спорт", "Политика", "Новости", "Юмор", "Еда", "Кино", "Рестораны", "Прогулки", "Политика", "Новости", "Юмор", "Еда", "Кино"  ]
+    private var categories = Categories.names
 
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -39,15 +41,13 @@ final class ViewController: UIViewController {
     private lazy var collectionView: UICollectionView = {
         let layout = TagFlowLayout()
         layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-//        layout.estimatedItemSize = CGSize(width: 140, height: 40)
-//        layout.itemSize = UICollectionViewFlowLayout.automaticSize
-//        collectionView.collectionViewLayout = layout
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-//        layout.minimumInteritemSpacing = 10
-//        layout.minimumLineSpacing = 10
-//        collectionView.contentInsetAdjustmentBehavior = .always
         collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: CollectionViewCell.identifier)
         collectionView.dataSource = self
+        collectionView.dragInteractionEnabled = true
+        collectionView.dropDelegate = self
+        collectionView.dragDelegate = self
+        collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
 
         return collectionView
@@ -56,7 +56,7 @@ final class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupHierarhy()
-        setuoLayout()
+        setupLayout()
     }
 
     private func setupHierarhy() {
@@ -65,7 +65,7 @@ final class ViewController: UIViewController {
         view.addSubview(collectionView)
     }
 
-    private func setuoLayout() {
+    private func setupLayout() {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 60),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -83,28 +83,104 @@ final class ViewController: UIViewController {
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
+
+    private func reorderItems(coordinator: UICollectionViewDropCoordinator, destinationIndexPath: IndexPath, collectionView: UICollectionView) {
+        if let item = coordinator.items.first,
+           let sourceIndexPath = item.sourceIndexPath {
+
+            collectionView.performBatchUpdates({
+                categories.remove(at: sourceIndexPath.item)
+                categories.insert(item.dragItem.localObject as? String ?? "no item",
+                                  at: destinationIndexPath.item)
+
+                collectionView.deleteItems(at: [sourceIndexPath])
+                collectionView.insertItems(at: [destinationIndexPath])
+            })
+            coordinator.drop(item.dragItem, toItemAt: destinationIndexPath)
+        }
+    }
 }
 
-extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-   
+extension ViewController: UICollectionViewDataSource {
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.identifier,
                                                             for: indexPath) as? CollectionViewCell else {
             return UICollectionViewCell()
         }
-        cell.titleLabel.text = titles[indexPath.row]
+        cell.layer.cornerRadius = 12
+        cell.backgroundColor = .separator
+        cell.titleLabel.text = categories[indexPath.row]
         cell.titleLabel.preferredMaxLayoutWidth = collectionView.frame.width - 16
 
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        titles.count
+        categories.count
+    }
+}
+
+extension ViewController: UICollectionViewDragDelegate {
+
+    func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        let item = categories[indexPath.row]
+        let itemProvider = NSItemProvider(object: item as NSString)
+        let dragItem = UIDragItem(itemProvider: itemProvider)
+        dragItem.localObject = item
+        return [dragItem]
+    }
+}
+
+extension ViewController: UICollectionViewDropDelegate {
+
+    func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
+        if collectionView.hasActiveDrag {
+            return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+        }
+        return UICollectionViewDropProposal(operation: .forbidden)
     }
 
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-//        return CGSize(width: 200, height: 30)
-//    }
+    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
+
+        var destinationIndexPath: IndexPath
+        
+        if let indexPath = coordinator.destinationIndexPath {
+            destinationIndexPath = indexPath
+        } else {
+            let row = collectionView.numberOfItems(inSection: 0)
+            destinationIndexPath = IndexPath(item: row - 1, section: 0)
+        }
+
+        if coordinator.proposal.operation == .move {
+            reorderItems(coordinator: coordinator, destinationIndexPath: destinationIndexPath, collectionView: collectionView)
+        }
+    }
+}
+
+extension ViewController: UICollectionViewDelegate {
 
 
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as? CollectionViewCell
+
+                if isTap {
+                    print("True")
+                    cell?.separatorView.isHidden = true
+                    cell?.backgroundColor = .orange
+                    cell?.plusImage.image = UIImage(systemName: "checkmark")
+                    isTap = false
+                } else {
+                    print("False")
+                    isTap = true
+                    cell?.separatorView.isHidden = false
+                    cell?.backgroundColor = .separator
+                    cell?.plusImage.image = UIImage(systemName: "plus")
+                }
+//        print("Hello")
+//        cell?.separatorView.isHidden = true
+//        cell?.backgroundColor = .orange
+//        cell?.plusImage.image = UIImage(systemName: "checkmark")
+    }
 }
