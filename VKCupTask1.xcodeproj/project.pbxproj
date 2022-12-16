@@ -13,6 +13,7 @@
 		D9D13135293E46320000D569 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9D13133293E46320000D569 /* LaunchScreen.storyboard */; };
 		D9D13143293E555C0000D569 /* TagFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D13142293E555B0000D569 /* TagFlowLayout.swift */; };
 		D9D13145293F63B50000D569 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D13144293F63B50000D569 /* CollectionViewCell.swift */; };
+		D9F5E107294C9F92004455AD /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F5E106294C9F92004455AD /* Categories.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		D9D13136293E46320000D569 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9D13142293E555B0000D569 /* TagFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagFlowLayout.swift; sourceTree = "<group>"; };
 		D9D13144293F63B50000D569 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		D9F5E106294C9F92004455AD /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +58,40 @@
 		D9D13127293E46310000D569 /* VKCupTask1 */ = {
 			isa = PBXGroup;
 			children = (
-				D9D13128293E46310000D569 /* AppDelegate.swift */,
-				D9D1312C293E46310000D569 /* ViewController.swift */,
-				D9D13144293F63B50000D569 /* CollectionViewCell.swift */,
-				D9D13142293E555B0000D569 /* TagFlowLayout.swift */,
+				D9F5E100294C97A6004455AD /* Sources */,
 				D9D13131293E46320000D569 /* Assets.xcassets */,
 				D9D13133293E46320000D569 /* LaunchScreen.storyboard */,
 				D9D13136293E46320000D569 /* Info.plist */,
 			);
 			path = VKCupTask1;
+			sourceTree = "<group>";
+		};
+		D9F5E100294C97A6004455AD /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				D9F5E101294C97B0004455AD /* App */,
+				D9F5E105294C9F7D004455AD /* Model */,
+				D9D1312C293E46310000D569 /* ViewController.swift */,
+				D9D13144293F63B50000D569 /* CollectionViewCell.swift */,
+				D9D13142293E555B0000D569 /* TagFlowLayout.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		D9F5E101294C97B0004455AD /* App */ = {
+			isa = PBXGroup;
+			children = (
+				D9D13128293E46310000D569 /* AppDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		D9F5E105294C9F7D004455AD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D9F5E106294C9F92004455AD /* Categories.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,6 +170,7 @@
 			files = (
 				D9D1312D293E46310000D569 /* ViewController.swift in Sources */,
 				D9D13129293E46310000D569 /* AppDelegate.swift in Sources */,
+				D9F5E107294C9F92004455AD /* Categories.swift in Sources */,
 				D9D13145293F63B50000D569 /* CollectionViewCell.swift in Sources */,
 				D9D13143293E555C0000D569 /* TagFlowLayout.swift in Sources */,
 			);
