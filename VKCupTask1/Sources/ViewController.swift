@@ -8,8 +8,6 @@
 import UIKit
 
 final class ViewController: UIViewController {
-    
-    var isTap = true
 
     private var categories = Categories.names
 
@@ -38,7 +36,7 @@ final class ViewController: UIViewController {
         return button
     }()
 
-    private lazy var collectionView: UICollectionView = {
+    private lazy var categoriesCollectionView: UICollectionView = {
         let layout = TagFlowLayout()
         layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -62,7 +60,7 @@ final class ViewController: UIViewController {
     private func setupHierarhy() {
         view.addSubview(titleLabel)
         view.addSubview(skipButton)
-        view.addSubview(collectionView)
+        view.addSubview(categoriesCollectionView)
     }
 
     private func setupLayout() {
@@ -77,10 +75,10 @@ final class ViewController: UIViewController {
             skipButton.heightAnchor.constraint(equalToConstant: 43),
             skipButton.widthAnchor.constraint(equalToConstant: 79),
 
-            collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 24),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            categoriesCollectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 24),
+            categoriesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            categoriesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            categoriesCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 
@@ -165,22 +163,9 @@ extension ViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as? CollectionViewCell
 
-                if isTap {
-                    print("True")
-                    cell?.separatorView.isHidden = true
-                    cell?.backgroundColor = .orange
-                    cell?.plusImage.image = UIImage(systemName: "checkmark")
-                    isTap = false
-                } else {
-                    print("False")
-                    isTap = true
-                    cell?.separatorView.isHidden = false
-                    cell?.backgroundColor = .separator
-                    cell?.plusImage.image = UIImage(systemName: "plus")
-                }
-//        print("Hello")
-//        cell?.separatorView.isHidden = true
-//        cell?.backgroundColor = .orange
-//        cell?.plusImage.image = UIImage(systemName: "checkmark")
+        print("Hello")
+        cell?.separatorView.isHidden = true
+        cell?.backgroundColor = .orange
+        cell?.plusImage.image = UIImage(systemName: "checkmark")
     }
 }

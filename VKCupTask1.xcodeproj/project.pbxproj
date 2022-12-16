@@ -14,6 +14,9 @@
 		D9D13143293E555C0000D569 /* TagFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D13142293E555B0000D569 /* TagFlowLayout.swift */; };
 		D9D13145293F63B50000D569 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D13144293F63B50000D569 /* CollectionViewCell.swift */; };
 		D9F5E107294C9F92004455AD /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F5E106294C9F92004455AD /* Categories.swift */; };
+		D9F5E109294D0DAD004455AD /* DragDropViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F5E108294D0DAD004455AD /* DragDropViewController.swift */; };
+		D9F5E10B294D0E39004455AD /* DragDropCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F5E10A294D0E39004455AD /* DragDropCollectionViewCell.swift */; };
+		D9F5E10D294D12CA004455AD /* NewDragDropCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F5E10C294D12CA004455AD /* NewDragDropCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +29,9 @@
 		D9D13142293E555B0000D569 /* TagFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagFlowLayout.swift; sourceTree = "<group>"; };
 		D9D13144293F63B50000D569 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		D9F5E106294C9F92004455AD /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
+		D9F5E108294D0DAD004455AD /* DragDropViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragDropViewController.swift; sourceTree = "<group>"; };
+		D9F5E10A294D0E39004455AD /* DragDropCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragDropCollectionViewCell.swift; sourceTree = "<group>"; };
+		D9F5E10C294D12CA004455AD /* NewDragDropCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDragDropCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +80,9 @@
 				D9D1312C293E46310000D569 /* ViewController.swift */,
 				D9D13144293F63B50000D569 /* CollectionViewCell.swift */,
 				D9D13142293E555B0000D569 /* TagFlowLayout.swift */,
+				D9F5E108294D0DAD004455AD /* DragDropViewController.swift */,
+				D9F5E10A294D0E39004455AD /* DragDropCollectionViewCell.swift */,
+				D9F5E10C294D12CA004455AD /* NewDragDropCollectionViewCell.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -170,7 +179,10 @@
 			files = (
 				D9D1312D293E46310000D569 /* ViewController.swift in Sources */,
 				D9D13129293E46310000D569 /* AppDelegate.swift in Sources */,
+				D9F5E10D294D12CA004455AD /* NewDragDropCollectionViewCell.swift in Sources */,
 				D9F5E107294C9F92004455AD /* Categories.swift in Sources */,
+				D9F5E10B294D0E39004455AD /* DragDropCollectionViewCell.swift in Sources */,
+				D9F5E109294D0DAD004455AD /* DragDropViewController.swift in Sources */,
 				D9D13145293F63B50000D569 /* CollectionViewCell.swift in Sources */,
 				D9D13143293E555C0000D569 /* TagFlowLayout.swift in Sources */,
 			);
