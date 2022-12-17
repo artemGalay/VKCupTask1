@@ -15,8 +15,7 @@
 		D9D13145293F63B50000D569 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D13144293F63B50000D569 /* CollectionViewCell.swift */; };
 		D9F5E107294C9F92004455AD /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F5E106294C9F92004455AD /* Categories.swift */; };
 		D9F5E109294D0DAD004455AD /* DragDropViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F5E108294D0DAD004455AD /* DragDropViewController.swift */; };
-		D9F5E10B294D0E39004455AD /* DragDropCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F5E10A294D0E39004455AD /* DragDropCollectionViewCell.swift */; };
-		D9F5E10D294D12CA004455AD /* NewDragDropCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F5E10C294D12CA004455AD /* NewDragDropCollectionViewCell.swift */; };
+		D9F5E10B294D0E39004455AD /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F5E10A294D0E39004455AD /* CategoriesCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,8 +29,7 @@
 		D9D13144293F63B50000D569 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		D9F5E106294C9F92004455AD /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		D9F5E108294D0DAD004455AD /* DragDropViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragDropViewController.swift; sourceTree = "<group>"; };
-		D9F5E10A294D0E39004455AD /* DragDropCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragDropCollectionViewCell.swift; sourceTree = "<group>"; };
-		D9F5E10C294D12CA004455AD /* NewDragDropCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDragDropCollectionViewCell.swift; sourceTree = "<group>"; };
+		D9F5E10A294D0E39004455AD /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,9 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				D9F5E100294C97A6004455AD /* Sources */,
-				D9D13131293E46320000D569 /* Assets.xcassets */,
-				D9D13133293E46320000D569 /* LaunchScreen.storyboard */,
-				D9D13136293E46320000D569 /* Info.plist */,
+				D9F5E112294E030E004455AD /* Resources */,
 			);
 			path = VKCupTask1;
 			sourceTree = "<group>";
@@ -79,10 +75,7 @@
 				D9F5E105294C9F7D004455AD /* Model */,
 				D9D1312C293E46310000D569 /* ViewController.swift */,
 				D9D13144293F63B50000D569 /* CollectionViewCell.swift */,
-				D9D13142293E555B0000D569 /* TagFlowLayout.swift */,
-				D9F5E108294D0DAD004455AD /* DragDropViewController.swift */,
-				D9F5E10A294D0E39004455AD /* DragDropCollectionViewCell.swift */,
-				D9F5E10C294D12CA004455AD /* NewDragDropCollectionViewCell.swift */,
+				D9F5E10E294E028A004455AD /* Modules */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -101,6 +94,50 @@
 				D9F5E106294C9F92004455AD /* Categories.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		D9F5E10E294E028A004455AD /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				D9F5E10F294E02BD004455AD /* Controllers */,
+				D9F5E110294E02CE004455AD /* Cells */,
+				D9F5E111294E02DC004455AD /* FlowLayout */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		D9F5E10F294E02BD004455AD /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D9F5E108294D0DAD004455AD /* DragDropViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		D9F5E110294E02CE004455AD /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				D9F5E10A294D0E39004455AD /* CategoriesCollectionViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		D9F5E111294E02DC004455AD /* FlowLayout */ = {
+			isa = PBXGroup;
+			children = (
+				D9D13142293E555B0000D569 /* TagFlowLayout.swift */,
+			);
+			path = FlowLayout;
+			sourceTree = "<group>";
+		};
+		D9F5E112294E030E004455AD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D9D13131293E46320000D569 /* Assets.xcassets */,
+				D9D13133293E46320000D569 /* LaunchScreen.storyboard */,
+				D9D13136293E46320000D569 /* Info.plist */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -179,9 +216,8 @@
 			files = (
 				D9D1312D293E46310000D569 /* ViewController.swift in Sources */,
 				D9D13129293E46310000D569 /* AppDelegate.swift in Sources */,
-				D9F5E10D294D12CA004455AD /* NewDragDropCollectionViewCell.swift in Sources */,
 				D9F5E107294C9F92004455AD /* Categories.swift in Sources */,
-				D9F5E10B294D0E39004455AD /* DragDropCollectionViewCell.swift in Sources */,
+				D9F5E10B294D0E39004455AD /* CategoriesCollectionViewCell.swift in Sources */,
 				D9F5E109294D0DAD004455AD /* DragDropViewController.swift in Sources */,
 				D9D13145293F63B50000D569 /* CollectionViewCell.swift in Sources */,
 				D9D13143293E555C0000D569 /* TagFlowLayout.swift in Sources */,
@@ -325,7 +361,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 76N9URDUCT;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = VKCupTask1/Info.plist;
+				INFOPLIST_FILE = VKCupTask1/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -354,7 +390,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 76N9URDUCT;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = VKCupTask1/Info.plist;
+				INFOPLIST_FILE = VKCupTask1/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";

@@ -26,7 +26,7 @@ final class DragDropViewController: UIViewController {
         label.lineBreakMode = .byWordWrapping
         var paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineHeightMultiple = 1.05
-        label.attributedText = NSMutableAttributedString(string: "Отметьте то, что вам интересно, чтобы настроить Дзен",
+        label.attributedText = NSMutableAttributedString(string: "Перетащите категорию вниз, чтобы настроить Дзен",
                                                          attributes: [NSAttributedString.Key.kern: -0.31,
                                                                       NSAttributedString.Key.paragraphStyle: paragraphStyle])
         return label
@@ -46,7 +46,7 @@ final class DragDropViewController: UIViewController {
         let layout = TagFlowLayout()
         layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(DragDropCollectionViewCell.self, forCellWithReuseIdentifier: DragDropCollectionViewCell.identifier)
+        collectionView.register(CategoriesCollectionViewCell.self, forCellWithReuseIdentifier: CategoriesCollectionViewCell.identifier)
         collectionView.dataSource = self
         collectionView.dragInteractionEnabled = true
         collectionView.dropDelegate = self
@@ -60,7 +60,7 @@ final class DragDropViewController: UIViewController {
         let layout = TagFlowLayout()
         layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(DragDropCollectionViewCell.self, forCellWithReuseIdentifier: DragDropCollectionViewCell.identifier)
+        collectionView.register(CategoriesCollectionViewCell.self, forCellWithReuseIdentifier: CategoriesCollectionViewCell.identifier)
         collectionView.backgroundView = backgroundImage
         collectionView.layer.cornerRadius = 12
         collectionView.dataSource = self
@@ -80,15 +80,21 @@ final class DragDropViewController: UIViewController {
         return imageView
     }()
 
-    //MARK: View Lifecycle Methods
+    //MARK: Lifecycle Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupHierachy()
+        setupLayout()
+    }
+
+    //MARK: Private Methods
+
+    private func setupHierachy() {
         view.addSubview(titleLabel)
         view.addSubview(skipButton)
         view.addSubview(categoriesCollectionView)
         view.addSubview(favoriteCategoriesCollectionView)
-        setupLayout()
     }
 
     private func setupLayout() {
@@ -116,8 +122,6 @@ final class DragDropViewController: UIViewController {
         ])
     }
 
-    //MARK: Private Methods
-
     private func reorderItems(coordinator: UICollectionViewDropCoordinator, destinationIndexPath: IndexPath, collectionView: UICollectionView) {
         let items = coordinator.items
         if items.count == 1, let item = items.first, let sourceIndexPath = item.sourceIndexPath {
@@ -127,11 +131,11 @@ final class DragDropViewController: UIViewController {
             }
             collectionView.performBatchUpdates({
                 if collectionView === favoriteCategoriesCollectionView {
-                    self.favoriteCategories.remove(at: sourceIndexPath.row)
-                    self.favoriteCategories.insert(item.dragItem.localObject as? String ?? "no item", at: indexPath.row)
+                    favoriteCategories.remove(at: sourceIndexPath.row)
+                    favoriteCategories.insert(item.dragItem.localObject as? String ?? "no item", at: indexPath.row)
                 } else {
-                    self.categories.remove(at: sourceIndexPath.row)
-                    self.categories.insert(item.dragItem.localObject as? String ?? "no item", at: indexPath.row)
+                    categories.remove(at: sourceIndexPath.row)
+                    categories.insert(item.dragItem.localObject as? String ?? "no item", at: indexPath.row)
                 }
                 collectionView.deleteItems(at: [sourceIndexPath])
                 collectionView.insertItems(at: [indexPath])
@@ -146,9 +150,9 @@ final class DragDropViewController: UIViewController {
             for (index, item) in coordinator.items.enumerated() {
                 let indexPath = IndexPath(row: destinationIndexPath.row + index, section: destinationIndexPath.section)
                 if collectionView === favoriteCategoriesCollectionView {
-                    self.favoriteCategories.insert(item.dragItem.localObject as? String ?? "no item", at: indexPath.row)
+                    favoriteCategories.insert(item.dragItem.localObject as? String ?? "no item", at: indexPath.row)
                 } else {
-                    self.categories.insert(item.dragItem.localObject as? String ?? "no item", at: indexPath.row)
+                    categories.insert(item.dragItem.localObject as? String ?? "no item", at: indexPath.row)
                 }
                 indexPaths.append(indexPath)
             }
@@ -158,34 +162,42 @@ final class DragDropViewController: UIViewController {
 }
 
 // MARK: - UICollectionViewDataSource Methods
+
 extension DragDropViewController : UICollectionViewDataSource {
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return collectionView == self.categoriesCollectionView ? self.categories.count : self.favoriteCategories.count
+        collectionView == categoriesCollectionView ? categories.count : favoriteCategories.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == self.categoriesCollectionView {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DragDropCollectionViewCell.identifier, for: indexPath) as? DragDropCollectionViewCell else { return UICollectionViewCell()}
+        if collectionView == categoriesCollectionView {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoriesCollectionViewCell.identifier, for: indexPath) as? CategoriesCollectionViewCell else { return UICollectionViewCell() }
             cell.backgroundColor = .separator
             cell.layer.cornerRadius = 12
-            cell.titleLabel.text = self.categories[indexPath.row]
+            cell.titleLabel.text = categories[indexPath.row]
             return cell
         } else {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DragDropCollectionViewCell.identifier, for: indexPath) as? DragDropCollectionViewCell else { return UICollectionViewCell() }
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoriesCollectionViewCell.identifier, for: indexPath) as? CategoriesCollectionViewCell else { return UICollectionViewCell() }
             cell.backgroundColor = .orange
             cell.layer.cornerRadius = 12
             cell.plusImage.image = UIImage(systemName: "checkmark")
             cell.separatorView.isHidden = true
-            cell.titleLabel.text = self.favoriteCategories[indexPath.row]
+            cell.titleLabel.text = favoriteCategories[indexPath.row]
             return cell
         }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: <#T##String#>, for: <#T##IndexPath#>)
     }
 }
 
 // MARK: - UICollectionViewDragDelegate Methods
+
 extension DragDropViewController : UICollectionViewDragDelegate {
+
     func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        let item = collectionView == categoriesCollectionView ? self.categories[indexPath.row] : self.favoriteCategories[indexPath.row]
+        let item = collectionView == categoriesCollectionView ? categories[indexPath.row] : favoriteCategories[indexPath.row]
         let itemProvider = NSItemProvider(object: item as NSString)
         let dragItem = UIDragItem(itemProvider: itemProvider)
         dragItem.localObject = item
@@ -193,7 +205,7 @@ extension DragDropViewController : UICollectionViewDragDelegate {
     }
 
     func collectionView(_ collectionView: UICollectionView, itemsForAddingTo session: UIDragSession, at indexPath: IndexPath, point: CGPoint) -> [UIDragItem] {
-        let item = collectionView == categoriesCollectionView ? self.categories[indexPath.row] : self.favoriteCategories[indexPath.row]
+        let item = collectionView == categoriesCollectionView ? categories[indexPath.row] : favoriteCategories[indexPath.row]
         let itemProvider = NSItemProvider(object: item as NSString)
         let dragItem = UIDragItem(itemProvider: itemProvider)
         dragItem.localObject = item
@@ -202,13 +214,15 @@ extension DragDropViewController : UICollectionViewDragDelegate {
 }
 
 // MARK: - UICollectionViewDropDelegate Methods
+
 extension DragDropViewController : UICollectionViewDropDelegate {
+
     func collectionView(_ collectionView: UICollectionView, canHandle session: UIDropSession) -> Bool {
         return session.canLoadObjects(ofClass: NSString.self)
     }
 
     func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
-        if collectionView === self.categoriesCollectionView {
+        if collectionView === categoriesCollectionView {
             if collectionView.hasActiveDrag {
                 return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
             } else {
@@ -235,10 +249,10 @@ extension DragDropViewController : UICollectionViewDropDelegate {
 
         switch coordinator.proposal.operation {
         case .move:
-            self.reorderItems(coordinator: coordinator, destinationIndexPath:destinationIndexPath, collectionView: collectionView)
+            reorderItems(coordinator: coordinator, destinationIndexPath:destinationIndexPath, collectionView: collectionView)
             break
         case .copy:
-            self.copyItems(coordinator: coordinator, destinationIndexPath: destinationIndexPath, collectionView: collectionView)
+            copyItems(coordinator: coordinator, destinationIndexPath: destinationIndexPath, collectionView: collectionView)
         default:
             return
         }
